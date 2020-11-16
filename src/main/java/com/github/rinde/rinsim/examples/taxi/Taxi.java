@@ -91,6 +91,8 @@ class Taxi extends Vehicle {
         				  this.curr.get().getDeliveryLocation()
         				  )
         		  ).getValue().toString();
+          if (distanceLine.equals("0.0"))
+      		System.out.println("NOOOO");
     	  System.out.println(TaxiExample2.containerCurrentTripId.get(this) + "," + deliverLine + "," + distanceLine);
         }
       } else {

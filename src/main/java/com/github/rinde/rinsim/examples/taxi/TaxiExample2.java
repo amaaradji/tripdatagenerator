@@ -206,12 +206,18 @@ public final class TaxiExample2 {
     }
     System.out.println("initialising " + NUM_CUSTOMERS + " customers...");
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
-      simulator.register(new Customer(
-        Parcel.builder(roadModel.getRandomPosition(rng),
-          roadModel.getRandomPosition(rng))
-          .serviceDuration(SERVICE_DURATION)
-          .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
-          .buildDTO()));
+    	Point pu_point = roadModel.getRandomPosition(rng);
+    	    	
+    	Point do_point = getFarAwayDO(rng, roadModel, pu_point);
+    	
+    	
+    
+    	simulator.register(new Customer(
+	        Parcel.builder(pu_point,
+	          do_point)
+	          .serviceDuration(SERVICE_DURATION)
+	          .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
+	          .buildDTO()));
     }
 
     simulator.addTickListener(new TickListener() {
@@ -226,10 +232,12 @@ public final class TaxiExample2 {
           simulator.stop();
         } else if (rng.nextDouble() < NEW_CUSTOMER_PROB) {
           //System.out.println("new customer");
+        	Point pu_point = roadModel.getRandomPosition(rng);
+        	Point do_point = getFarAwayDO(rng, roadModel, pu_point);
         	simulator.register(new Customer(
             Parcel
-              .builder(roadModel.getRandomPosition(rng),
-                roadModel.getRandomPosition(rng))
+              .builder(pu_point,
+            		  do_point)
               .serviceDuration(SERVICE_DURATION)
               .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
               .buildDTO()));
@@ -251,6 +259,21 @@ public final class TaxiExample2 {
 
     return simulator;
   }
+
+private static Point getFarAwayDO(final RandomGenerator rng, final RoadModel roadModel, Point pu_point) {
+	Point do_point = roadModel.getRandomPosition(rng);
+	Double distance;
+	do {
+		do_point = roadModel.getRandomPosition(rng);
+		distance = roadModel.getDistanceOfPath(
+				roadModel.getShortestPathTo(
+						pu_point,
+						do_point
+					  )
+			  ).getValue();
+	} while (distance < 1);
+	return do_point;
+}
 
   static View.Builder createGui(
       boolean testing,
