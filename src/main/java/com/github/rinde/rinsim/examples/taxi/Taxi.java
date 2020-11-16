@@ -110,11 +110,13 @@ class Taxi extends Vehicle {
   }
 
 	private double toLat(double y) {
-		return Math.toDegrees(  Math.atan(asinh(1.0 /Math.toRadians(y/ (scale * METER_TO_KM) ))));
+//		return Math.toDegrees(  Math.atan(asinh(1.0 /Math.toRadians(y/ (scale * METER_TO_KM) ))));
+		return y;
 	}
 	
 	private double toLon(double x) {
-		return x / METER_TO_KM / scale;
+//		return x / METER_TO_KM / scale;
+		return x;
 	}
 	double asinh(double x) {
 	    return Math.log(x + Math.sqrt(x*x + 1.0));

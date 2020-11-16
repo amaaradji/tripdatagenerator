@@ -98,7 +98,7 @@ public final class TaxiExample2 {
   private static double NEW_CUSTOMER_PROB = .01;//probability to generate a new customer each time tick
 
 //  private static final String MAP_FILE = "/data/maps/leuven-simple.dot";
-  private static String MAP_FILE = "/home/abdu/eclipse-workspace/leuven-simple.dot";
+  private static String MAP_FILE = "/home/abdu/eclipse-workspace/test1.dot";
   private static PrintStream file_out, standard_out;
   private static final Map<String, Graph<MultiAttributeData>> GRAPH_CACHE =
     newHashMap();
