@@ -202,7 +202,7 @@ public final class TaxiExample2 {
     System.out.println("initialising " + NUM_TAXIS + " taxis...");
     for (int i = 0; i < NUM_TAXIS; i++) {
       simulator.register(new Taxi(roadModel.getRandomPosition(rng),
-        TAXI_CAPACITY, i, 200000));
+        TAXI_CAPACITY, i, 180));//taxi initial speed is 180kh
     }
     System.out.println("initialising " + NUM_CUSTOMERS + " customers...");
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
